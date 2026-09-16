@@ -99,9 +99,11 @@ export default function Home() {
       <header className="sticky top-0 z-50 bg-[#faf8f5]/90 backdrop-blur-md border-b border-black/5 h-[72px] flex items-center">
         <div className="max-w-[1320px] w-full mx-auto px-7 flex items-center justify-between">
           <a href="#" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#e11d48] to-[#f26522] flex items-center justify-center text-white font-extrabold text-base">
-              P
-            </div>
+            <img 
+              src="/provenetix_logo.jpg" 
+              alt="Provenetix AI Logo" 
+              className="h-8 w-auto object-contain rounded-md"
+            />
             <span className="text-xl font-extrabold tracking-tight text-[#111827]">
               Provenetix<span className="text-[#f26522]">AI</span>
             </span>
@@ -387,7 +389,7 @@ export default function Home() {
             
             <div className="md:col-span-2">
               <div className="flex items-center gap-2.5 mb-3">
-                <div className="w-7 h-7 rounded bg-gradient-to-br from-[#e11d48] to-[#f26522] flex items-center justify-center text-white font-extrabold text-xs">P</div>
+                <img src="/provenetix_logo.jpg" alt="Provenetix AI Logo" className="h-7 w-auto object-contain rounded" />
                 <span className="text-lg font-extrabold text-white">Provenetix AI</span>
               </div>
               <p className="text-xs text-gray-400 leading-relaxed max-w-sm mb-4">
