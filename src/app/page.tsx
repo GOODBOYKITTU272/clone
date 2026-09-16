@@ -13,7 +13,7 @@ export default function Home() {
     setTimeout(() => setToastMsg(null), 3000);
   };
 
-  // Particle Canvas Background Animation
+  // Canvas background rendering stippled particle wave with vector connector lines
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -32,17 +32,17 @@ export default function Home() {
 
     window.addEventListener("resize", handleResize);
 
-    const particles: { x: number; y: number; vx: number; vy: number; size: number; color: string }[] = [];
-    const numParticles = 100;
+    const particles: { x: number; y: number; vx: number; vy: number; size: number; alpha: number }[] = [];
+    const numParticles = 140;
 
     for (let i = 0; i < numParticles; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        size: Math.random() * 2 + 1,
-        color: Math.random() > 0.3 ? "rgba(239, 68, 68, 0.25)" : "rgba(242, 101, 34, 0.2)",
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        size: Math.random() * 1.5 + 0.8,
+        alpha: Math.random() * 0.4 + 0.1,
       });
     }
 
@@ -51,6 +51,7 @@ export default function Home() {
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
+      // Draw faint background grid dots
       particles.forEach((p) => {
         p.x += p.vx;
         p.y += p.vy;
@@ -60,22 +61,23 @@ export default function Home() {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
+        ctx.fillStyle = `rgba(239, 68, 68, ${p.alpha})`;
         ctx.fill();
       });
 
+      // Connecting stippled lines
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < 100) {
+          if (dist < 90) {
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(239, 68, 68, ${0.08 * (1 - dist / 100)})`;
-            ctx.lineWidth = 0.8;
+            ctx.strokeStyle = `rgba(239, 68, 68, ${0.06 * (1 - dist / 90)})`;
+            ctx.lineWidth = 0.6;
             ctx.stroke();
           }
         }
@@ -95,7 +97,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col font-sans bg-[#faf8f5] text-[#111827]">
       
-      {/* SuperAnnotate Top Nav */}
+      {/* SuperAnnotate Exact Top Navigation */}
       <header className="sticky top-0 z-50 bg-[#faf8f5]/90 backdrop-blur-md border-b border-black/5 h-[72px] flex items-center">
         <div className="max-w-[1320px] w-full mx-auto px-7 flex items-center justify-between">
           <a href="#" className="flex items-center gap-2.5">
@@ -141,7 +143,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero Section */}
+      {/* Hero Section - Exact Match to Screenshot 2 */}
       <section className="relative py-16 md:py-24 min-h-[640px] flex items-center overflow-hidden">
         <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-0" />
 
@@ -149,68 +151,88 @@ export default function Home() {
           
           {/* Left Text Col */}
           <div className="lg:col-span-7 max-w-[680px]">
-            <div className="flex items-center gap-2.5 mb-6">
-              <span className="text-[#f59e0b] text-sm tracking-widest">★★★★★</span>
+            <div className="flex items-center gap-2 mb-6">
+              <span className="text-[#ef4444] text-xs font-mono">★★★★★</span>
               <span className="text-[13.5px] font-extrabold text-[#111827]">4.9</span>
-              <span className="bg-[#ef4444] text-white text-[11px] font-extrabold px-1.5 py-0.5 rounded">G2</span>
-              <span className="text-[13px] text-gray-500 font-semibold">#1 AI Data Company</span>
+              <span className="bg-[#ef4444] text-white text-[10px] font-extrabold px-1.5 py-0.5 rounded">G2</span>
+              <span className="text-[13px] text-gray-400 font-semibold">#1 AI Data Company</span>
             </div>
 
             <h1 className="text-4xl md:text-6xl font-extrabold text-[#111827] leading-[1.15] tracking-tight mb-6">
-              <span className="highlight-pill">Platform,</span> <span className="highlight-pill">experts,</span> and <span className="highlight-pill">workflows</span> to deliver the highest-quality AI data.
+              <span className="bg-[#fee2e2] text-[#111827] px-3 py-1 rounded-2xl border border-[#fca5a5]/30">Platform,</span>{" "}
+              <span className="bg-[#fee2e2] text-[#111827] px-3 py-1 rounded-2xl border border-[#fca5a5]/30">experts,</span> and{" "}
+              <span className="bg-[#fee2e2] text-[#111827] px-3 py-1 rounded-2xl border border-[#fca5a5]/30">workflows</span> to deliver the highest-quality AI data.
             </h1>
 
-            <button
-              className="bg-[#111827] text-white text-[15px] font-bold px-8 py-3.5 rounded-full shadow-md hover:bg-black transition-all transform hover:-translate-y-0.5 cursor-pointer"
-              onClick={() => showToast("Contact us requested")}
-            >
-              Contact us
-            </button>
+            <div className="pt-2">
+              <button
+                className="bg-[#111827] text-white text-[14.5px] font-bold px-7 py-3.5 rounded-full shadow-lg hover:bg-black transition-all cursor-pointer"
+                onClick={() => showToast("Contact us requested")}
+              >
+                Contact us
+              </button>
+            </div>
           </div>
 
-          {/* Right Floating Nodes Col (Matches Screenshot) */}
-          <div className="lg:col-span-5 relative h-[480px] hidden md:flex flex-col justify-center">
+          {/* Right Floating Nodes Col - Exact match to SuperAnnotate pill badges */}
+          <div className="lg:col-span-5 relative h-[440px] hidden md:flex flex-col justify-center">
             
+            {/* SVG Connecting Vector Lines */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none stroke-[#fca5a5]/40" strokeDasharray="3 3">
+              <line x1="20%" y1="50%" x2="60%" y2="15%" strokeWidth="1.2" />
+              <line x1="20%" y1="50%" x2="70%" y2="30%" strokeWidth="1.2" />
+              <line x1="20%" y1="50%" x2="55%" y2="48%" strokeWidth="1.2" />
+              <line x1="20%" y1="50%" x2="75%" y2="64%" strokeWidth="1.2" />
+              <line x1="20%" y1="50%" x2="65%" y2="78%" strokeWidth="1.2" />
+              <line x1="20%" y1="50%" x2="50%" y2="90%" strokeWidth="1.2" />
+            </svg>
+
+            {/* Pill 1 */}
             <div 
-              className="absolute top-[12%] right-[18%] bg-white border border-black/10 px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-2.5 text-[13.5px] font-bold text-[#111827] cursor-pointer hover:scale-105 hover:border-[#e11d48] transition-all animate-float-1"
-              onClick={() => showToast("RL Environments module selected")}
+              className="absolute top-[10%] right-[18%] bg-white/95 border border-black/10 px-3.5 py-1.5 rounded-md shadow-sm flex items-center gap-2 text-[12.5px] font-semibold text-gray-800 cursor-pointer hover:border-[#ef4444] transition-all"
+              onClick={() => showToast("RL Environments selected")}
             >
-              <span className="w-2 h-2 rounded-full bg-[#ef4444]"></span> RL Environments
+              <span className="w-1.5 h-1.5 bg-[#ef4444] rounded-sm"></span> RL Environments
             </div>
 
+            {/* Pill 2 */}
             <div 
-              className="absolute top-[26%] right-[8%] bg-white border border-black/10 px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-2.5 text-[13.5px] font-bold text-[#111827] cursor-pointer hover:scale-105 hover:border-[#e11d48] transition-all animate-float-2"
-              onClick={() => showToast("Multimodal Labeling module selected")}
+              className="absolute top-[26%] right-[5%] bg-white/95 border border-black/10 px-3.5 py-1.5 rounded-md shadow-sm flex items-center gap-2 text-[12.5px] font-semibold text-gray-800 cursor-pointer hover:border-[#ef4444] transition-all"
+              onClick={() => showToast("Multimodal Labeling selected")}
             >
-              <span className="w-2 h-2 rounded-full bg-[#ef4444]"></span> Multimodal Labeling
+              <span className="w-1.5 h-1.5 bg-[#ef4444] rounded-sm"></span> Multimodal Labeling
             </div>
 
+            {/* Pill 3 */}
             <div 
-              className="absolute top-[40%] right-[26%] bg-white border border-black/10 px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-2.5 text-[13.5px] font-bold text-[#111827] cursor-pointer hover:scale-105 hover:border-[#e11d48] transition-all animate-float-3"
-              onClick={() => showToast("RLHF & SFT module selected")}
+              className="absolute top-[44%] right-[28%] bg-white/95 border border-black/10 px-3.5 py-1.5 rounded-md shadow-sm flex items-center gap-2 text-[12.5px] font-semibold text-gray-800 cursor-pointer hover:border-[#ef4444] transition-all"
+              onClick={() => showToast("RLHF & SFT selected")}
             >
-              <span className="w-2 h-2 rounded-full bg-[#ef4444]"></span> RLHF &amp; SFT
+              <span className="w-1.5 h-1.5 bg-[#ef4444] rounded-sm"></span> RLHF &amp; SFT
             </div>
 
+            {/* Pill 4 */}
             <div 
-              className="absolute top-[54%] right-[4%] bg-white border border-black/10 px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-2.5 text-[13.5px] font-bold text-[#111827] cursor-pointer hover:scale-105 hover:border-[#e11d48] transition-all animate-float-4"
-              onClick={() => showToast("Agent Trajectories module selected")}
+              className="absolute top-[60%] right-[3%] bg-white/95 border border-black/10 px-3.5 py-1.5 rounded-md shadow-sm flex items-center gap-2 text-[12.5px] font-semibold text-gray-800 cursor-pointer hover:border-[#ef4444] transition-all"
+              onClick={() => showToast("Agent Trajectories selected")}
             >
-              <span className="w-2 h-2 rounded-full bg-[#ef4444]"></span> Agent Trajectories
+              <span className="w-1.5 h-1.5 bg-[#ef4444] rounded-sm"></span> Agent Trajectories
             </div>
 
+            {/* Pill 5 */}
             <div 
-              className="absolute top-[68%] right-[22%] bg-white border border-black/10 px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-2.5 text-[13.5px] font-bold text-[#111827] cursor-pointer hover:scale-105 hover:border-[#e11d48] transition-all animate-float-5"
-              onClick={() => showToast("Evaluation module selected")}
+              className="absolute top-[75%] right-[22%] bg-white/95 border border-black/10 px-3.5 py-1.5 rounded-md shadow-sm flex items-center gap-2 text-[12.5px] font-semibold text-gray-800 cursor-pointer hover:border-[#ef4444] transition-all"
+              onClick={() => showToast("Evaluation selected")}
             >
-              <span className="w-2 h-2 rounded-full bg-[#ef4444]"></span> Evaluation
+              <span className="w-1.5 h-1.5 bg-[#ef4444] rounded-sm"></span> Evaluation
             </div>
 
+            {/* Pill 6 */}
             <div 
-              className="absolute top-[82%] right-[12%] bg-white border border-black/10 px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-2.5 text-[13.5px] font-bold text-[#111827] cursor-pointer hover:scale-105 hover:border-[#e11d48] transition-all animate-float-6"
-              onClick={() => showToast("Off-the-shelf Datasets module selected")}
+              className="absolute top-[88%] right-[12%] bg-white/95 border border-black/10 px-3.5 py-1.5 rounded-md shadow-sm flex items-center gap-2 text-[12.5px] font-semibold text-gray-800 cursor-pointer hover:border-[#ef4444] transition-all"
+              onClick={() => showToast("Off-the-shelf Datasets selected")}
             >
-              <span className="w-2 h-2 rounded-full bg-[#ef4444]"></span> Off-the-shelf Datasets
+              <span className="w-1.5 h-1.5 bg-[#ef4444] rounded-sm"></span> Off-the-shelf Datasets
             </div>
 
           </div>
@@ -218,51 +240,51 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Logo Marquee Carousel */}
+      {/* Real Extracted SVG Logo Marquee Carousel - Matches Screenshot 2 */}
       <div className="bg-white border-y border-black/5 py-6 overflow-hidden relative z-10">
-        <div className="flex items-center gap-14 w-max animate-marquee">
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">servicenow</span>
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">databricks</span>
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">snowflake</span>
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">gumgum</span>
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">TwelveLabs</span>
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">Fireworks</span>
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">KÖRBER</span>
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">GET YOUR GUIDE</span>
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">TARANIS</span>
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">Flo</span>
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">rem people</span>
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">NVIDIA</span>
+        <div className="flex items-center gap-16 w-max animate-marquee">
+          <img src="/aws.svg" alt="AWS" className="h-6 max-h-6 object-contain opacity-60 hover:opacity-100 transition-opacity" />
+          <img src="/google-cloud.svg" alt="Google Cloud" className="h-6 max-h-6 object-contain opacity-60 hover:opacity-100 transition-opacity" />
+          <img src="/ibm.svg" alt="IBM" className="h-6 max-h-6 object-contain opacity-60 hover:opacity-100 transition-opacity" />
+          <img src="/servicenow.svg" alt="ServiceNow" className="h-6 max-h-6 object-contain opacity-60 hover:opacity-100 transition-opacity" />
+          <img src="/databricks.svg" alt="Databricks" className="h-6 max-h-6 object-contain opacity-60 hover:opacity-100 transition-opacity" />
+          <img src="/snowflake.svg" alt="Snowflake" className="h-6 max-h-6 object-contain opacity-60 hover:opacity-100 transition-opacity" />
+          <img src="/gumgum.svg" alt="GumGum" className="h-6 max-h-6 object-contain opacity-60 hover:opacity-100 transition-opacity" />
+          <img src="/twelve-labs.svg" alt="TwelveLabs" className="h-6 max-h-6 object-contain opacity-60 hover:opacity-100 transition-opacity" />
+          <img src="/fireworks-ai.svg" alt="Fireworks AI" className="h-6 max-h-6 object-contain opacity-60 hover:opacity-100 transition-opacity" />
+          <img src="/nvidia.svg" alt="NVIDIA" className="h-6 max-h-6 object-contain opacity-60 hover:opacity-100 transition-opacity" />
 
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">servicenow</span>
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">databricks</span>
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">snowflake</span>
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">gumgum</span>
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">TwelveLabs</span>
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">Fireworks</span>
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">KÖRBER</span>
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">GET YOUR GUIDE</span>
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">TARANIS</span>
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">Flo</span>
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">rem people</span>
-          <span className="text-lg font-extrabold text-gray-500 opacity-70">NVIDIA</span>
+          {/* Duplicated loop for smooth infinite scroll */}
+          <img src="/aws.svg" alt="AWS" className="h-6 max-h-6 object-contain opacity-60 hover:opacity-100 transition-opacity" />
+          <img src="/google-cloud.svg" alt="Google Cloud" className="h-6 max-h-6 object-contain opacity-60 hover:opacity-100 transition-opacity" />
+          <img src="/ibm.svg" alt="IBM" className="h-6 max-h-6 object-contain opacity-60 hover:opacity-100 transition-opacity" />
+          <img src="/servicenow.svg" alt="ServiceNow" className="h-6 max-h-6 object-contain opacity-60 hover:opacity-100 transition-opacity" />
+          <img src="/databricks.svg" alt="Databricks" className="h-6 max-h-6 object-contain opacity-60 hover:opacity-100 transition-opacity" />
+          <img src="/snowflake.svg" alt="Snowflake" className="h-6 max-h-6 object-contain opacity-60 hover:opacity-100 transition-opacity" />
+          <img src="/gumgum.svg" alt="GumGum" className="h-6 max-h-6 object-contain opacity-60 hover:opacity-100 transition-opacity" />
+          <img src="/twelve-labs.svg" alt="TwelveLabs" className="h-6 max-h-6 object-contain opacity-60 hover:opacity-100 transition-opacity" />
+          <img src="/fireworks-ai.svg" alt="Fireworks AI" className="h-6 max-h-6 object-contain opacity-60 hover:opacity-100 transition-opacity" />
+          <img src="/nvidia.svg" alt="NVIDIA" className="h-6 max-h-6 object-contain opacity-60 hover:opacity-100 transition-opacity" />
         </div>
       </div>
 
-      {/* Infrastructure Section */}
-      <section className="py-24 bg-white" id="infra">
+      {/* Infrastructure Section - Exact Match to Screenshot 3 */}
+      <section className="py-24 bg-[#faf8f5]" id="infra">
         <div className="max-w-[1320px] w-full mx-auto px-7">
-          <div className="text-xs font-extrabold text-gray-500 tracking-widest uppercase mb-3">• INFRASTRUCTURE</div>
-          <h2 className="text-4xl font-extrabold text-[#111827] leading-tight tracking-tight mb-10 max-w-3xl">
-            The complete platform for AI data curation, annotation, and evaluation.
+          <div className="text-xs font-extrabold text-[#ef4444] tracking-widest uppercase mb-3">• INFRASTRUCTURE</div>
+          <h2 className="text-4xl font-extrabold text-[#111827] leading-tight tracking-tight mb-4 max-w-3xl">
+            A unified platform for fine-tuning and evaluation
           </h2>
+          <p className="text-base text-gray-600 mb-10 max-w-2xl">
+            Customizable annotation tooling, data exploration, quality assurance, and model evaluation built for scale.
+          </p>
 
-          <div className="flex gap-3 border-b-2 border-gray-200 mb-8 overflow-x-auto">
+          <div className="flex gap-3 border-b border-gray-200 mb-8 overflow-x-auto">
             {["cv", "rlhf", "agents", "eval", "datasets"].map((tabKey) => (
               <button
                 key={tabKey}
                 className={`py-3.5 px-5 font-bold text-sm whitespace-nowrap cursor-pointer border-b-2 -mb-[2px] transition-all ${
-                  activeTab === tabKey ? "border-[#e11d48] text-black" : "border-transparent text-gray-500 hover:text-black"
+                  activeTab === tabKey ? "border-[#ef4444] text-black" : "border-transparent text-gray-500 hover:text-black"
                 }`}
                 onClick={() => {
                   setActiveTab(tabKey);
@@ -278,16 +300,16 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="bg-[#0b0f19] rounded-2xl p-8 text-white shadow-2xl">
+          <div className="bg-[#090d16] rounded-2xl p-6 text-white shadow-2xl border border-white/10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
               
-              <div className="lg:col-span-3 bg-[#111827] rounded-xl p-5 flex flex-col gap-2.5">
-                <div className="text-[11px] font-bold text-gray-400 uppercase mb-1">Annotation Tools</div>
+              <div className="lg:col-span-3 bg-[#111827] rounded-xl p-4 flex flex-col gap-2 border border-white/5">
+                <div className="text-[11px] font-bold text-gray-400 uppercase mb-1 tracking-wider">ANNOTATION TOOLS</div>
                 {["bbox", "polygon", "sam", "keypoint", "cuboid"].map((t) => (
                   <button
                     key={t}
-                    className={`p-3 rounded-md text-xs font-semibold flex items-center gap-2.5 cursor-pointer border transition-all ${
-                      activeTool === t ? "bg-[#e11d48] border-[#e11d48] text-white" : "border-white/10 text-white hover:bg-white/5"
+                    className={`p-3 rounded-lg text-xs font-semibold flex items-center gap-2.5 cursor-pointer border transition-all ${
+                      activeTool === t ? "bg-[#ef4444] border-[#ef4444] text-white" : "border-white/10 text-white hover:bg-white/5"
                     }`}
                     onClick={() => {
                       setActiveTool(t);
@@ -303,38 +325,40 @@ export default function Home() {
                 ))}
               </div>
 
-              <div className="lg:col-span-6 bg-black rounded-xl min-h-[380px] relative overflow-hidden flex items-center justify-center">
+              <div className="lg:col-span-6 bg-black rounded-xl min-h-[420px] relative overflow-hidden flex items-center justify-center border border-white/10">
                 <img
                   src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1200&auto=format&fit=crop"
                   alt="AI Dataset Viewport"
-                  className="w-full h-full object-cover opacity-85"
+                  className="w-full h-full object-cover opacity-90"
                 />
-                <div className="absolute top-[25%] left-[30%] w-[40%] h-[45%] border-2 border-[#ef4444] bg-[#ef4444]/15 rounded">
-                  <span className="absolute -top-6 -left-0.5 bg-[#ef4444] text-white text-[11px] font-bold px-2 py-0.5 rounded">
+                <div className="absolute top-[22%] left-[30%] w-[42%] h-[48%] border-2 border-[#ef4444] bg-[#ef4444]/15 rounded">
+                  <span className="absolute -top-6 -left-0.5 bg-[#ef4444] text-white text-[11px] font-mono font-bold px-2 py-0.5 rounded shadow">
                     Autonomous_Vehicle (98.4%)
                   </span>
                 </div>
               </div>
 
-              <div className="lg:col-span-3 bg-[#111827] rounded-xl p-5">
-                <div className="text-sm font-bold border-b border-white/10 pb-2 mb-3">Object Inspector</div>
-                <div className="space-y-3">
-                  <div>
-                    <div className="text-[11px] text-gray-400">Class Label</div>
-                    <div className="text-xs font-mono font-bold text-[#38bdf8]">Autonomous_Vehicle</div>
-                  </div>
-                  <div>
-                    <div className="text-[11px] text-gray-400">Model Assistance</div>
-                    <div className="text-xs font-mono font-bold text-[#38bdf8]">Segment Anything (SAM)</div>
-                  </div>
-                  <div>
-                    <div className="text-[11px] text-gray-400">Confidence Score</div>
-                    <div className="text-xs font-mono font-bold text-[#38bdf8]">0.9842</div>
+              <div className="lg:col-span-3 bg-[#111827] rounded-xl p-5 border border-white/5 flex flex-col justify-between">
+                <div>
+                  <div className="text-xs font-bold border-b border-white/10 pb-2.5 mb-4 text-white uppercase tracking-wider">Object Inspector</div>
+                  <div className="space-y-4">
+                    <div>
+                      <div className="text-[11px] text-gray-400 mb-0.5">Class Label</div>
+                      <div className="text-xs font-mono font-bold text-[#38bdf8]">Autonomous_Vehicle</div>
+                    </div>
+                    <div>
+                      <div className="text-[11px] text-gray-400 mb-0.5">Model Assistance</div>
+                      <div className="text-xs font-mono font-bold text-[#38bdf8]">Segment Anything (SAM)</div>
+                    </div>
+                    <div>
+                      <div className="text-[11px] text-gray-400 mb-0.5">Confidence Score</div>
+                      <div className="text-xs font-mono font-bold text-[#38bdf8]">0.9842</div>
+                    </div>
                   </div>
                 </div>
 
                 <button
-                  className="w-full mt-6 bg-[#111827] border border-white/20 hover:bg-black text-white font-bold py-2.5 rounded-md text-xs cursor-pointer"
+                  className="w-full mt-6 bg-[#1f2937] hover:bg-black border border-white/20 text-white font-bold py-2.5 rounded-lg text-xs cursor-pointer transition-all"
                   onClick={() => showToast("Annotation approved and saved!")}
                 >
                   Approve Annotation
@@ -346,43 +370,138 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Experts Section */}
+      {/* "Not just tooling" / Experts Section - Exact Match to Screenshot 4 */}
       <section className="py-24 bg-[#faf8f5]" id="experts">
         <div className="max-w-[1320px] w-full mx-auto px-7">
-          <div className="text-xs font-extrabold text-gray-500 tracking-widest uppercase mb-3">• EXPERTS</div>
-          <h2 className="text-4xl font-extrabold text-[#111827] leading-tight tracking-tight mb-10 max-w-3xl">
-            PhD-level domain experts for RLHF, coding, and medical AI.
+          
+          <h2 className="text-4xl md:text-5xl font-extrabold text-[#111827] tracking-tight mb-3">
+            Not just tooling
           </h2>
+          <p className="text-base text-gray-600 mb-12 max-w-2xl">
+            The human expertise and unified infrastructure behind every frontier AI model.
+          </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-white border border-black/10 rounded-xl p-7 shadow-sm hover:-translate-y-1 transition-transform">
-              <div className="text-3xl mb-4">💻</div>
-              <h3 className="text-lg font-extrabold text-[#111827] mb-2">Software Engineers</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">Code generation, multi-language debugging, and unit test benchmarks.</p>
+          <div className="bg-white border border-black/10 rounded-2xl p-8 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
+            
+            {/* Left Box: Expert Avatar Graphic Array */}
+            <div className="lg:col-span-5 bg-[#faf8f5] rounded-xl p-8 flex items-center justify-center relative min-h-[360px] border border-black/5">
+              <svg className="absolute inset-0 w-full h-full pointer-events-none stroke-[#fca5a5]/50" strokeDasharray="3 3">
+                <line x1="50%" y1="50%" x2="25%" y2="25%" strokeWidth="1.5" />
+                <line x1="50%" y1="50%" x2="75%" y2="25%" strokeWidth="1.5" />
+                <line x1="50%" y1="50%" x2="25%" y2="75%" strokeWidth="1.5" />
+                <line x1="50%" y1="50%" x2="75%" y2="75%" strokeWidth="1.5" />
+                <line x1="50%" y1="50%" x2="50%" y2="85%" strokeWidth="1.5" />
+              </svg>
+
+              <div className="relative w-full h-full min-h-[300px] flex items-center justify-center">
+                {/* Center Node */}
+                <div className="w-4 h-4 rounded-full bg-[#ef4444] shadow-md z-10"></div>
+
+                {/* Avatar 1 */}
+                <img src="/expert-lead.png" alt="Expert Lead" className="absolute top-[5%] left-[10%] w-20 h-20 rounded-2xl object-cover shadow-md border-2 border-white" />
+                {/* Avatar 2 */}
+                <img src="/expert-partner.png" alt="Expert Partner" className="absolute top-[5%] right-[10%] w-20 h-20 rounded-2xl object-cover shadow-md border-2 border-white" />
+                {/* Avatar 3 */}
+                <img src="/expert-analyst.png" alt="Expert Analyst" className="absolute bottom-[5%] left-[10%] w-20 h-20 rounded-2xl object-cover shadow-md border-2 border-white" />
+                {/* Avatar 4 */}
+                <img src="/expert-quality.png" alt="Expert Quality" className="absolute bottom-[5%] right-[10%] w-20 h-20 rounded-2xl object-cover shadow-md border-2 border-white" />
+                {/* Avatar 5 */}
+                <img src="/expert-mentor.png" alt="Expert Mentor" className="absolute bottom-[0%] left-[38%] w-18 h-18 rounded-2xl object-cover shadow-md border-2 border-white" />
+              </div>
             </div>
 
-            <div className="bg-white border border-black/10 rounded-xl p-7 shadow-sm hover:-translate-y-1 transition-transform">
-              <div className="text-3xl mb-4">🔬</div>
-              <h3 className="text-lg font-extrabold text-[#111827] mb-2">PhD Scientists</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">STEM reasoning, complex mathematical proof verification, and physics data.</p>
+            {/* Right Side Card List - Exact Copy from Screenshot 4 */}
+            <div className="lg:col-span-7 flex flex-col justify-center space-y-6">
+              
+              <div>
+                <h3 className="text-2xl font-extrabold text-[#111827] mb-2">Expert humans, in the loop</h3>
+                <p className="text-sm text-gray-500 mb-6">
+                  The right specialists for your project, precise in their execution and critical in their feedback.
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                
+                <div className="p-4 rounded-xl border border-gray-100 hover:border-gray-300 transition-all flex gap-4 items-start">
+                  <div className="w-9 h-9 rounded-lg bg-[#fee2e2] text-[#ef4444] flex items-center justify-center font-bold text-sm shrink-0">
+                    <i className="fa-solid fa-user-doctor"></i>
+                  </div>
+                  <div>
+                    <h4 className="text-base font-bold text-[#111827]">Expert Services</h4>
+                    <p className="text-xs text-gray-500 leading-relaxed">Skilled professionals with deep domain talent for your most complex projects.</p>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-xl border border-gray-100 hover:border-gray-300 transition-all flex gap-4 items-start">
+                  <div className="w-9 h-9 rounded-lg bg-[#fee2e2] text-[#ef4444] flex items-center justify-center font-bold text-sm shrink-0">
+                    <i className="fa-solid fa-wand-magic-sparkles"></i>
+                  </div>
+                  <div>
+                    <h4 className="text-base font-bold text-[#111827]">AI-Assisted Annotation</h4>
+                    <p className="text-xs text-gray-500 leading-relaxed">Speed and consistency at scale with AI tools guided by expert oversight.</p>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-xl border border-gray-100 hover:border-gray-300 transition-all flex gap-4 items-start">
+                  <div className="w-9 h-9 rounded-lg bg-[#fee2e2] text-[#ef4444] flex items-center justify-center font-bold text-sm shrink-0">
+                    <i className="fa-solid fa-database"></i>
+                  </div>
+                  <div>
+                    <h4 className="text-base font-bold text-[#111827]">Off-the-shelf Datasets</h4>
+                    <p className="text-xs text-gray-500 leading-relaxed">Ready-to-use datasets for common use cases so you can move faster.</p>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-xl border border-gray-100 hover:border-gray-300 transition-all flex gap-4 items-start">
+                  <div className="w-9 h-9 rounded-lg bg-[#fee2e2] text-[#ef4444] flex items-center justify-center font-bold text-sm shrink-0">
+                    <i className="fa-solid fa-globe"></i>
+                  </div>
+                  <div>
+                    <h4 className="text-base font-bold text-[#111827]">Data Collection</h4>
+                    <p className="text-xs text-gray-500 leading-relaxed">Real-world, high-fidelity data from global network partners.</p>
+                  </div>
+                </div>
+
+              </div>
+
             </div>
 
-            <div className="bg-white border border-black/10 rounded-xl p-7 shadow-sm hover:-translate-y-1 transition-transform">
-              <div className="text-3xl mb-4">🩺</div>
-              <h3 className="text-lg font-extrabold text-[#111827] mb-2">Medical Doctors</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">Radiology image segmentation, clinical summarization, and healthcare AI.</p>
-            </div>
+          </div>
 
-            <div className="bg-white border border-black/10 rounded-xl p-7 shadow-sm hover:-translate-y-1 transition-transform">
-              <div className="text-3xl mb-4">⚖️</div>
-              <h3 className="text-lg font-extrabold text-[#111827] mb-2">Legal Scholars</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">Contract clause analysis, statutory compliance evaluation, and legal datasets.</p>
+          {/* Sub-section: Every vendor, one secure system */}
+          <div className="mb-8">
+            <h3 className="text-2xl font-extrabold text-[#111827] mb-2">Every vendor, one secure system</h3>
+            <p className="text-sm text-gray-500 mb-6">
+              Unify all your data vendors into a single secure infrastructure you control.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-white border border-black/10 rounded-xl p-6 shadow-sm flex items-start gap-4">
+                <div className="w-10 h-10 rounded-lg bg-[#fee2e2] text-[#ef4444] flex items-center justify-center text-base shrink-0">
+                  <i className="fa-solid fa-[#shield-halved]"></i>
+                </div>
+                <div>
+                  <h4 className="text-base font-bold text-[#111827] mb-1">SOC 2 Type II &amp; HIPAA Compliant</h4>
+                  <p className="text-xs text-gray-500 leading-relaxed">Enterprise data governance with end-to-end encryption and audit logs.</p>
+                </div>
+              </div>
+
+              <div className="bg-white border border-black/10 rounded-xl p-6 shadow-sm flex items-start gap-4">
+                <div className="w-10 h-10 rounded-lg bg-[#fee2e2] text-[#ef4444] flex items-center justify-center text-base shrink-0">
+                  <i className="fa-solid fa-lock"></i>
+                </div>
+                <div>
+                  <h4 className="text-base font-bold text-[#111827] mb-1">Zero Data Retention Option</h4>
+                  <p className="text-xs text-gray-500 leading-relaxed">Keep your training assets completely inside your own cloud VPC (AWS, GCP, Azure).</p>
+                </div>
+              </div>
             </div>
           </div>
+
         </div>
       </section>
 
-      {/* SuperAnnotate Footer with Integrated MCA Records */}
+      {/* SuperAnnotate Legal Corporate Footer */}
       <footer className="bg-[#0b0f19] text-gray-400 py-16 text-xs border-t border-white/10" id="legal">
         <div className="max-w-[1320px] w-full mx-auto px-7">
           <div className="grid grid-cols-1 md:grid-cols-5 gap-10 mb-12">
@@ -447,7 +566,7 @@ export default function Home() {
 
       {/* Toast Bar */}
       {toastMsg && (
-        <div className="fixed bottom-6 right-6 bg-[#111827] text-white border border-[#e11d48] px-5 py-3 rounded-lg font-bold text-xs shadow-2xl z-50">
+        <div className="fixed bottom-6 right-6 bg-[#111827] text-white border border-[#ef4444] px-5 py-3 rounded-lg font-bold text-xs shadow-2xl z-50">
           <i className="fa-solid fa-circle-check text-[#ef4444] mr-2"></i> {toastMsg}
         </div>
       )}
