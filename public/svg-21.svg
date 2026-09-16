@@ -1,0 +1,42 @@
+<svg class="sol-net-lines" viewBox="0 0 420 460" preserveAspectRatio="none" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+        <path id="solnet-l1" d="M206 220 L206 104 Q206 96 198 96 L188 96"/>
+        <path id="solnet-l2" d="M214 220 L214 158 Q214 150 222 150 L236 150"/>
+        <path id="solnet-l3" d="M202 220 L144 220"/>
+        <path id="solnet-l4" d="M218 220 L276 220"/>
+        <path id="solnet-l5" d="M210 228 L210 302"/>
+        
+        <circle class="sol-net-signal" r="3.2" opacity="0">
+          <animateMotion dur="6.4s" begin="0s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.42;1">
+            <mpath href="#solnet-l1"/>
+          </animateMotion>
+          <animate attributeName="opacity" values="0;0.85;0.85;0;0" keyTimes="0;0.06;0.36;0.42;1" dur="6.4s" begin="0s" repeatCount="indefinite"/>
+        </circle>
+        
+        <circle class="sol-net-signal" r="3.2" opacity="0">
+          <animateMotion dur="6.4s" begin="-1.3s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.42;1">
+            <mpath href="#solnet-l2"/>
+          </animateMotion>
+          <animate attributeName="opacity" values="0;0.85;0.85;0;0" keyTimes="0;0.06;0.36;0.42;1" dur="6.4s" begin="-1.3s" repeatCount="indefinite"/>
+        </circle>
+        
+        <circle class="sol-net-signal" r="3.2" opacity="0">
+          <animateMotion dur="6.4s" begin="-2.6s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.42;1">
+            <mpath href="#solnet-l3"/>
+          </animateMotion>
+          <animate attributeName="opacity" values="0;0.85;0.85;0;0" keyTimes="0;0.06;0.36;0.42;1" dur="6.4s" begin="-2.6s" repeatCount="indefinite"/>
+        </circle>
+        
+        <circle class="sol-net-signal" r="3.2" opacity="0">
+          <animateMotion dur="6.4s" begin="-3.9s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.42;1">
+            <mpath href="#solnet-l4"/>
+          </animateMotion>
+          <animate attributeName="opacity" values="0;0.85;0.85;0;0" keyTimes="0;0.06;0.36;0.42;1" dur="6.4s" begin="-3.9s" repeatCount="indefinite"/>
+        </circle>
+        
+        <circle class="sol-net-signal" r="3.2" opacity="0">
+          <animateMotion dur="6.4s" begin="-5.2s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.42;1">
+            <mpath href="#solnet-l5"/>
+          </animateMotion>
+          <animate attributeName="opacity" values="0;0.85;0.85;0;0" keyTimes="0;0.06;0.36;0.42;1" dur="6.4s" begin="-5.2s" repeatCount="indefinite"/>
+        </circle>
+      </svg>

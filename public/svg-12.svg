@@ -1,0 +1,37 @@
+<svg class="viz-svg" viewBox="0 0 220 132" preserveAspectRatio="xMidYMid meet" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="lineGradRed" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#ffcabc"/><stop offset="100%" stop-color="#ff9c86"/>
+        </linearGradient>
+        <radialGradient id="haloRed" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fce3df"/><stop offset="100%" stop-color="#fce3df" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="181" cy="66" r="36" fill="url(#haloRed)"/>
+      <g fill="none" stroke="url(#lineGradRed)" stroke-width="1.5" stroke-linecap="round">
+        <path d="M50,19 C118,19 138,66 170,66"/>
+        <path d="M50,50 C104,50 132,66 170,66"/>
+        <path d="M50,82 C104,82 132,66 170,66"/>
+        <path d="M50,113 C118,113 138,66 170,66"/>
+      </g>
+      <circle r="1.7" fill="#ff9c86"><animateMotion dur="2.8s" begin="0s" repeatCount="indefinite" path="M50,19 C118,19 138,66 170,66"/></circle>
+      <circle r="1.7" fill="#ff9c86"><animateMotion dur="2.8s" begin=".7s" repeatCount="indefinite" path="M50,50 C104,50 132,66 170,66"/></circle>
+      <circle r="1.7" fill="#ff9c86"><animateMotion dur="2.8s" begin="1.4s" repeatCount="indefinite" path="M50,82 C104,82 132,66 170,66"/></circle>
+      <circle r="1.7" fill="#ff9c86"><animateMotion dur="2.8s" begin="2.1s" repeatCount="indefinite" path="M50,113 C118,113 138,66 170,66"/></circle>
+      <g>
+        <rect x="24" y="6" width="26" height="26" rx="8" fill="#fdf1ef" stroke="#fbe2de"/>
+        <g transform="translate(30,12)" stroke="#dd4e37" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M2,3 H12 M7,3 V12"/></g>
+        <rect x="24" y="37" width="26" height="26" rx="8" fill="#fdf1ef" stroke="#fbe2de"/>
+        <g transform="translate(30,43)" stroke="#dd4e37" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="2" width="12" height="10" rx="1.5"/><circle cx="4.3" cy="5.6" r="1" fill="#dd4e37" stroke="none"/><path d="M13,9 L9.3,5.6 L5.6,8.6 L3.6,6.6 L1,9"/></g>
+        <rect x="24" y="69" width="26" height="26" rx="8" fill="#fdf1ef" stroke="#fbe2de"/>
+        <g transform="translate(30,75)" stroke="#dd4e37" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="8" height="8" rx="1.2"/><path d="M9,6.3 L13,3.6 V12.4 L9,9.7"/></g>
+        <rect x="24" y="100" width="26" height="26" rx="8" fill="#fdf1ef" stroke="#fbe2de"/>
+        <g transform="translate(30,106)" stroke="#dd4e37" stroke-width="1.5" fill="none" stroke-linecap="round"><path d="M2,9 V5 M5,11 V3 M8,10 V4 M11,8 V6"/></g>
+      </g>
+      <g transform="translate(181,66)">
+        <circle class="ring" r="11" fill="none" stroke="#ff9c86" stroke-width="1.6"/>
+        <circle class="ring ring-delay" r="11" fill="none" stroke="#ff9c86" stroke-width="1.6"/>
+        <circle r="8.5" fill="#fff"/>
+        <circle class="core" r="8.5" fill="none" stroke="url(#lineGradRed)" stroke-width="4"/>
+      </g>
+    </svg>

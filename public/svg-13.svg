@@ -1,0 +1,32 @@
+<svg class="viz-svg" viewBox="0 0 220 132" preserveAspectRatio="xMidYMid meet" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="lineGradPurple" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0%" stop-color="#ac9ff8"/><stop offset="100%" stop-color="#6259e0"/>
+        </linearGradient>
+        <radialGradient id="coreGradPurple" cx="35%" cy="35%" r="75%">
+          <stop offset="0%" stop-color="#c8bffc"/><stop offset="100%" stop-color="#6259e0"/>
+        </radialGradient>
+      </defs>
+      <g stroke="#efedfb" stroke-width="1">
+        <line x1="0" y1="24" x2="220" y2="24"/>
+        <line x1="0" y1="58" x2="220" y2="58"/>
+        <line x1="0" y1="92" x2="220" y2="92"/>
+      </g>
+      <g stroke="#efedfb" stroke-width="1" stroke-dasharray="2 4" opacity=".8">
+        <line x1="126" y1="0" x2="102" y2="60"/>
+        <line x1="156" y1="0" x2="132" y2="60"/>
+        <line x1="186" y1="0" x2="162" y2="60"/>
+      </g>
+      <path class="path-draw" d="M8,102 C26,98 40,89 56,79 C70,70 78,66 90,58 C102,50 110,45 122,39 C134,33 147,27 158,24 C165,22 174,20.6 181,20" fill="none" stroke="url(#lineGradPurple)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <g fill="#ac9ff8">
+        <circle class="chase-dot" cx="56" cy="79" r="3.5" style="animation-delay:0s;"/>
+        <circle class="chase-dot" cx="90" cy="58" r="3.5" style="animation-delay:.4s;"/>
+        <circle class="chase-dot" cx="122" cy="39" r="3.5" style="animation-delay:.8s;"/>
+        <circle class="chase-dot" cx="158" cy="24" r="3.5" style="animation-delay:1.2s;"/>
+      </g>
+      <g transform="translate(181,20)">
+        <circle class="ring" r="10" fill="none" stroke="#ac9ff8" stroke-width="1.8"/>
+        <circle class="ring ring-delay" r="10" fill="none" stroke="#ac9ff8" stroke-width="1.8"/>
+        <circle class="core" r="6.6" fill="url(#coreGradPurple)"/>
+      </g>
+    </svg>
