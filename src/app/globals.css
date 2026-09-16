@@ -2,18 +2,56 @@
 
 @layer base {
   :root {
-    --bg-canvas: #faf8f5;
+    /* Real SuperAnnotate design tokens */
+    --color-primary-50: #f7f7f8;
+    --color-primary-100: #eeeff1;
+    --color-primary-200: #d8d9df;
+    --color-primary-300: #bbbec8;
+    --color-primary-400: #9398a9;
+    --color-primary-500: #72778d;
+    --color-primary-600: #606476;
+    --color-primary-700: #4d5160;
+    --color-primary-800: #3b3e49;
+    --color-primary-900: #2e3038;
+    --color-primary-950: #15161a;
+
+    --color-secondary-100: #e7edf8;
+    --color-secondary-200: #c7d4f0;
+    --color-secondary-400: #5e86df;
+    --color-secondary-500: #2c5dc4;
+    --color-secondary-600: #2752af;
+    --color-secondary-900: #18294e;
+
+    --color-accent-50: #fdf8f1;
+    --color-accent-100: #fcebd6;
+    --color-accent-200: #f7dec0;
+    --color-accent-400: #f6a746;
+    --color-accent-500: #ee8b11;
+    --color-accent-600: #c8740f;
+    --color-accent-900: #58370e;
+
+    --color-success: #22c55e;
+    --color-warning: #f59e0b;
+    --color-error: #ef4444;
+
+    --bg-canvas: var(--color-primary-50);
     --bg-white: #ffffff;
-    --bg-dark-card: #0b0f19;
-    
-    --text-dark: #111827;
-    --text-secondary: #4b5563;
-    --text-muted: #6b7280;
-    
-    --coral-highlight: #fce8e1;
-    --coral-accent: #ef4444;
-    --coral-brand: #e11d48;
-    --brand-orange: #f26522;
+    --bg-dark-card: var(--color-primary-950);
+
+    --text-dark: var(--color-primary-950);
+    --text-secondary: var(--color-primary-600);
+    --text-muted: var(--color-primary-500);
+
+    --accent-highlight: var(--color-accent-100);
+    --accent-brand: var(--color-accent-500);
+    --brand-blue: var(--color-secondary-500);
+
+    --font-family-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-family-display: 'Space Grotesk', var(--font-family-sans);
+    --font-family-mono: 'Space Mono', Consolas, monospace;
+
+    --gradient-brand-1: linear-gradient(105deg, rgb(251, 228, 223) 0%, rgb(255, 202, 188) 100%);
+    --gradient-brand-3: radial-gradient(circle at 35% 30%, rgb(246, 177, 147), rgb(233, 138, 104));
   }
 }
 
@@ -39,11 +77,15 @@
   animation: marqueeScroll 28s linear infinite;
 }
 
+.font-display {
+  font-family: var(--font-display, var(--font-family-display));
+}
+
 .highlight-pill {
-  background-color: #fce8e1;
-  color: #111827;
+  background-color: var(--color-accent-100);
+  color: var(--color-primary-950);
   padding: 2px 14px;
   border-radius: 30px;
   display: inline-block;
-  box-shadow: inset 0 0 0 1px rgba(225, 29, 72, 0.15);
+  box-shadow: inset 0 0 0 1px rgba(238, 139, 17, 0.2);
 }
